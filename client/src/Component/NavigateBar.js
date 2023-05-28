@@ -1,6 +1,6 @@
 import { Home, KeyboardReturn, LoginOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import "responsiveCSS/ComponentsCSS/NavigateBar.css";
+import "CSS/ComponentsCSS/NavigateBar.css";
 
 function NavigateBar({ isLoggedIn }) {
   const navigate = useNavigate();

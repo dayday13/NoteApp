@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import "responsiveCSS/ComponentsCSS/ImageUpload.css";
+import "CSS/ComponentsCSS/ImageUpload.css";
 
 function UploadImage(props) {
   const [fileName, setFileName] = useState("No selected file");

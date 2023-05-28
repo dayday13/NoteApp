@@ -18,6 +18,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use("/", require("./routes/register"));
 app.use("/", require("./routes/login"));
+app.use("/", require("./routes/verifyToken"));
 app.use("/", require("./routes/note"));
 
 app.listen(5000, () => {

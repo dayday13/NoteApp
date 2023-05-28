@@ -1,5 +1,6 @@
 const app = require("express").Router();
 const db = require("../connectToDb");
+
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -11,15 +12,16 @@ app.post("/register", (req, res) => {
     if (err) {
       console.log(err);
     }
+
     if (username !== "" && password !== "") {
       db.query(
         "INSERT INTO users (username, password) VALUES (?,?)",
-        [username, password],
+        [username, hash],
         (err, result) => {
           if (!err) {
             return res.send("User added successfully");
           }
-          res.send({ err: err });
+          res.send(err);
         }
       );
     }

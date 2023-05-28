@@ -10,21 +10,37 @@ const Login = () => {
   const [usernameLog, setUsernameLog] = useState("");
   const [passwordLog, setPasswordLog] = useState("");
 
+  const userAuthenticate = async () => {
+    const response = await Axios.get("http://localhost:5000/verifyToken", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    });
+    console.log(response);
+    if (response.data.message === "User is authenticated.") {
+      return true;
+    }
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:5000/login", {
       username: usernameLog,
       password: passwordLog,
     }).then((response) => {
+      console.log(response);
       if (!response.data.auth) {
-        alert("Wrong username or password!");
+        return alert("Wrong username or password!");
+      }
+      localStorage.setItem("token", response.data.token);
+      const checkToken = userAuthenticate();
+      if (!checkToken) {
+        return alert("User is not authenticated");
+      }
+      if (response.data.result[0][`username`] === "admin") {
+        navigate("/adminEdit");
       } else {
-        localStorage.setItem("token", response.data.token);
-        if (response.data.username === "admin") {
-          navigate("/adminEdit");
-        } else {
-          navigate("/note", { state: { is_admin: false, is_logged_in: true } });
-        }
+        navigate("/note");
       }
     });
   };

@@ -5,7 +5,7 @@ import Axios from "axios";
 import Carousel from "react-elastic-carousel";
 import NewNote from "Component/NewNote";
 import NavigateBar from "Component/NavigateBar";
-import "responsiveCSS/ComponentsCSS/Note.css";
+import "CSS/ComponentsCSS/Note.css";
 
 function Edit() {
   const [notes, setNotes] = useState(null);
