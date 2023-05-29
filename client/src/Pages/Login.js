@@ -17,32 +17,33 @@ const Login = () => {
       },
     });
     console.log(response);
-    if (response.data.message === "User is authenticated.") {
-      return true;
-    }
+    return response.data;
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:5000/login", {
+    const response = await Axios.post("http://localhost:5000/login", {
       username: usernameLog,
       password: passwordLog,
-    }).then((response) => {
-      console.log(response);
-      if (!response.data.auth) {
-        return alert("Wrong username or password!");
-      }
-      localStorage.setItem("token", response.data.token);
-      const checkToken = userAuthenticate();
-      if (!checkToken) {
-        return alert("User is not authenticated");
-      }
-      if (response.data.result[0][`username`] === "admin") {
-        navigate("/adminEdit");
-      } else {
-        navigate("/note");
-      }
     });
+
+    console.log(response);
+    if (!response.data.auth) {
+      alert(response.data.message);
+      return;
+    }
+    localStorage.setItem("token", response.data.token);
+    const checkToken = await userAuthenticate(); //access the promise result
+    console.log(response.data.token);
+    if (!checkToken.auth) {
+      alert(checkToken.message);
+      return;
+    }
+    if (response.data.result[0][`username`] === "admin") {
+      navigate("/adminEdit");
+    } else {
+      navigate("/note");
+    }
   };
 
   const handleRegister = () => {
