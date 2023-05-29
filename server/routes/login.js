@@ -24,9 +24,9 @@ app.post("/login", (req, res) => {
               message: "Wrong username/password combination.",
             });
           }
-          const id = result[0].UserID; // the userIF from the database
-          const token = jwt.sign({ id }, "jwtSecret", {
-            expiresIn: 300,
+          const id = result[0].UserID; // the userID from the database
+          const token = jwt.sign({ id }, process.env.TOKEN_KEY, {
+            expiresIn: "2h",
           }); //learn about .env so that we wont use jwtSecret
 
           res.json({
