@@ -8,14 +8,13 @@ const jwt = require("jsonwebtoken");
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  const jwtSecret = "jwtSecret";
 
   db.query(
     "SELECT * FROM users WHERE username = ?;",
     [username],
     (err, result) => {
       if (err) {
-        res.json({ err: err }); /*changed from send to json */
+        res.json({ err: err });
       }
 
       if (result.length > 0) {
@@ -38,7 +37,7 @@ app.post("/login", (req, res) => {
           }); // result is all the information from the user who is tryin to log in
         });
       } else {
-        res.send({ auth: false, message: "No user exist." });
+        res.json({ auth: false, message: "No user exist." });
       }
     }
   );

@@ -16,7 +16,6 @@ const Login = () => {
         "x-access-token": localStorage.getItem("token"),
       },
     });
-    console.log(response);
     return response.data;
   };
 
@@ -27,14 +26,12 @@ const Login = () => {
       password: passwordLog,
     });
 
-    console.log(response);
     if (!response.data.auth) {
       alert(response.data.message);
       return;
     }
     localStorage.setItem("token", response.data.token);
     const checkToken = await userAuthenticate(); //access the promise result
-    console.log(response.data.token);
     if (!checkToken.auth) {
       alert(checkToken.message);
       return;

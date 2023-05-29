@@ -10,7 +10,7 @@ app.post("/register", (req, res) => {
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
-      console.log(err);
+      return;
     }
 
     if (username !== "" && password !== "") {

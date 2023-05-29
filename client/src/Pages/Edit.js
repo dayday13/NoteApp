@@ -29,10 +29,6 @@ function Edit() {
         image: note.image,
         lastModified: note.lastModified,
         text: note.text,
-      }).then((res) => {
-        if (res) {
-          console.log(res);
-        }
       })
     );
   };

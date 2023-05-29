@@ -16,7 +16,6 @@ function Home() {
   useEffect(() => {
     Axios.get("http://localhost:5000/getNotes").then((res) => {
       if (res) {
-        console.log(res.data);
         setNotes(res.data);
       } else {
         setNotes([]);
